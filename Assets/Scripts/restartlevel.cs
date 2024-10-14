@@ -16,6 +16,6 @@ public class restartLevel : MonoBehaviour
 
     void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Recarga la escena actual
+        SceneManager.LoadScene("Main_Menu"); // Recarga la escena actual
     }
 }
