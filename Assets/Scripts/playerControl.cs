@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 public class playerControl : MonoBehaviour
 {
@@ -38,15 +39,15 @@ public class playerControl : MonoBehaviour
     {
         //verticalVelocity = 0;
 
-        characterController.Move(new Vector3(-2f, 0f, 0f) * velocidad * Time.deltaTime);
 
-        if (jump.action.WasPressedThisFrame())
+        if (jump.action.WasPressedThisFrame()&& characterController.isGrounded)
         {
             Debug.Log("saltando");
             verticalVelocity = jumpSpeed;
         }
         verticalVelocity += gravity * Time.deltaTime;
-        characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        characterController.Move((new Vector3(-2f, 0f, 0f) * velocidad + Vector3.up * verticalVelocity) * Time.deltaTime);
+        //characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
     }
 
     void OnDisable()
