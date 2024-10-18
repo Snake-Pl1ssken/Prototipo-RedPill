@@ -6,9 +6,19 @@ using UnityEngine.InputSystem.XR;
 
 public class playerControl : MonoBehaviour
 {
+    [Header("Speeds")]
+    [SerializeField] float baseSpeed = 2f;
+    [SerializeField] float sprintSpeed = 4f;
+    [Space(20)]
+    [SerializeField] int jumpSpeed;
+
     [Header("Input Actions")]
     [SerializeField] InputActionReference jump;
-    [SerializeField] float jumpSpeed;
+    [SerializeField] InputActionReference sprint;
+
+
+
+    float currentSpeed = 2f;
 
     CharacterController characterController;
 
@@ -22,6 +32,7 @@ public class playerControl : MonoBehaviour
     void OnEnable()
     {
         jump.action.Enable();
+        sprint.action.Enable();
     }
 
     // Start is called before the first frame update
@@ -33,26 +44,38 @@ public class playerControl : MonoBehaviour
 
     const float gravity = -15.81f;
 
-    private float velocidad = 2f;
+    //private float sprintSpeed = 2f;
 
     void Update()
     {
         //verticalVelocity = 0;
 
 
-        if (jump.action.WasPressedThisFrame()&& characterController.isGrounded)
+        if (jump.action.WasPressedThisFrame() && characterController.isGrounded)
         {
             Debug.Log("saltando");
             verticalVelocity = jumpSpeed;
         }
+        else if (sprint.action.IsPressed() && characterController.isGrounded)
+        {
+            Debug.Log("Mas Rapido Pressed");
+            currentSpeed = sprintSpeed;
+        }
+        else if (!sprint.action.IsPressed() && characterController.isGrounded)
+        {
+            Debug.Log("Mas Rapido NotPressed");
+            currentSpeed = baseSpeed;
+        }
+
         verticalVelocity += gravity * Time.deltaTime;
-        characterController.Move((new Vector3(-2f, 0f, 0f) * velocidad + Vector3.up * verticalVelocity) * Time.deltaTime);
-        //characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        characterController.Move((new Vector3(-2f, 0f, 0f) * currentSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
+        
     }
 
     void OnDisable()
     {
         jump.action.Disable();
+        sprint.action.Disable();
     }
 }
 
