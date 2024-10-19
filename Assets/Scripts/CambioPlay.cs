@@ -20,8 +20,13 @@ public class CambioPlay : MonoBehaviour
     }
 
     // Este método debe estar público para que lo puedas asignar al botón desde el inspector.
-    public void Cambiar_A_Game(string nombreEscena)
+    public void Switch_Scene(string nombreEscena)
     {
         SceneManager.LoadScene(nombreEscena);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
