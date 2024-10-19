@@ -16,12 +16,10 @@ public class playerControl : MonoBehaviour
     [SerializeField] InputActionReference jump;
     [SerializeField] InputActionReference sprint;
 
+    CharacterController characterController;
 
 
     float currentSpeed = 2f;
-
-    CharacterController characterController;
-
     float verticalVelocity;
 
     void Awake()
