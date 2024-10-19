@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MenuPausa : MonoBehaviour
 {
@@ -31,14 +32,29 @@ public class MenuPausa : MonoBehaviour
         }
         else if(pause.action.WasPerformedThisFrame() && pauseState)
         {
-            pauseScreen.SetActive(false);
-            pauseState = false;
-            Time.timeScale = 1f;
+            botonResume();
+            botonRestart();
         }
+
     }
 
     void OnDisable()
     {
         pause.action.Disable();
+    }
+
+    public void botonResume()
+    {
+        pauseScreen.SetActive(false);
+        pauseState = false;
+        Time.timeScale = 1f;
+    }
+    public void botonRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void botonMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
     }
 }
