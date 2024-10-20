@@ -33,7 +33,7 @@ public class MenuPausa : MonoBehaviour
         else if (pause.action.WasPressedThisFrame() && pauseState)
         {
             pauseScreen.SetActive(false);
-            pauseState = true;
+            pauseState = false;
             Time.timeScale = 1f;
         }
     }

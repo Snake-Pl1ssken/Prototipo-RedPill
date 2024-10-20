@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21b5046004659504c9fbc18ceecb3933
+guid: 1b58b359fdcaee7408fc5c855e19d4cf
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MAT_Chair
-    second: {fileID: 2100000, guid: 0cbfe06d4f5a8884ca9c8181ad482eeb, type: 2}
+      name: Glass
+    second: {fileID: 2100000, guid: 78c4c44ecd27fab44b89b00e7d65f2ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ice
+    second: {fileID: 2100000, guid: dbf2823539ee6f84693d0a40c0687dab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Whisky
+    second: {fileID: 2100000, guid: ee644c14460943f45a0cde4bf1c2f5e9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
