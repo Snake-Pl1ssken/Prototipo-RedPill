@@ -30,12 +30,12 @@ public class MenuPausa : MonoBehaviour
             Time.timeScale = 0f;
             pauseState = true;
         }
-        else if(pause.action.WasPerformedThisFrame() && pauseState)
+        else if (pause.action.WasPressedThisFrame() && pauseState)
         {
-            botonResume();
-            botonRestart();
+            pauseScreen.SetActive(false);
+            pauseState = true;
+            Time.timeScale = 1f;
         }
-
     }
 
     void OnDisable()
@@ -51,10 +51,14 @@ public class MenuPausa : MonoBehaviour
     }
     public void botonRestart()
     {
+        pauseState = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void botonMainMenu()
     {
+        pauseState = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Main_Menu");
     }
 }
