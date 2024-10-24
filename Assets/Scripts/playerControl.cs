@@ -16,6 +16,7 @@ public class playerControl : MonoBehaviour
     [SerializeField] InputActionReference jump;
     [SerializeField] InputActionReference sprint;
 
+
     CharacterController characterController;
 
 
