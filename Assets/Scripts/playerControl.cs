@@ -16,15 +16,15 @@ public class playerControl : MonoBehaviour
     [SerializeField] InputActionReference jump;
     [SerializeField] InputActionReference sprint;
 
-
     CharacterController characterController;
-
+    Animator anim;
 
     float currentSpeed = 2f;
     float verticalVelocity;
 
     void Awake()
     {
+        anim = GetComponentInChildren<Animator>();
         characterController = GetComponent<CharacterController>();
     }
 
@@ -47,7 +47,6 @@ public class playerControl : MonoBehaviour
 
     void Update()
     {
-        //verticalVelocity = 0;
 
 
         if (jump.action.WasPressedThisFrame() && characterController.isGrounded)
@@ -68,7 +67,20 @@ public class playerControl : MonoBehaviour
 
         verticalVelocity += gravity * Time.deltaTime;
         characterController.Move((new Vector3(2f, 0f, 0f) * currentSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
-        
+
+        //animacion de salto
+        anim.SetBool("Saltando", !characterController.isGrounded);
+
+        if (!characterController.isGrounded)
+        {
+            float normalizedVSpeed = Mathf.InverseLerp(jumpSpeed, -jumpSpeed, verticalVelocity);
+            anim.SetFloat("VSpeed", normalizedVSpeed);
+        }
+        else
+        {
+            anim.SetFloat("VSpeed", 1f);
+        }
+
     }
 
     void OnDisable()
