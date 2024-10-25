@@ -8,8 +8,10 @@ public class rayCastGun : MonoBehaviour
 {
     [Header("Input Actions")]
     [SerializeField] InputActionReference shoot;
+    [SerializeField] Transform laserOrigin;
+
     public Camera playerCamera;
-    public Transform laserOrigin;
+    //public Transform laserOrigin;
     public float gunRange = 50f;
     public float fireRate = 0.2f;
     public float laserDuration = 0.05f;
@@ -41,16 +43,16 @@ public class rayCastGun : MonoBehaviour
         {
             fireTimer = 0;
             laserLine.SetPosition(0, laserOrigin.position);
-            Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            //Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
-            if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out hit, gunRange))
+            if (Physics.Raycast(laserOrigin.position, laserOrigin.forward, out hit, gunRange))
             {
                 laserLine.SetPosition(1, hit.point);
                 Destroy(hit.transform.gameObject);
             }
             else
             {
-                laserLine.SetPosition(1, rayOrigin + (playerCamera.transform.forward * gunRange));
+                laserLine.SetPosition(1, laserOrigin.position + (laserOrigin.forward * gunRange));
             }
             StartCoroutine(ShootLaser());
         }
