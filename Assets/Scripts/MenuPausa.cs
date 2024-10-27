@@ -7,13 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class MenuPausa : MonoBehaviour
 {
+    public static MenuPausa instance
+    {
+        get; private set;
+    }
+
     [Header("Input Actions Pause")]
     [SerializeField] InputActionReference pause;
     [SerializeField] GameObject pauseScreen;
+    [Header("Input Actions Pause")]
+    [SerializeField] HUD hud;
+
+    private int vidas = 3;
 
 
     bool pauseState = false;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void OnEnable()
     {
@@ -60,5 +76,31 @@ public class MenuPausa : MonoBehaviour
         pauseState = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main_Menu");
+    }
+
+    public void PerderVida()
+    { 
+        vidas -= 1;
+        hud.DesactivarVida(vidas);
+
+        if (vidas == 0)
+        {
+            SceneManager.LoadScene("Main_Menu");
+        }
+
+    }
+
+    public bool RecuperarVida()
+    {
+
+        if (vidas == 3)
+        {
+            return false;
+        }
+        
+        hud.ActivarVida(vidas);
+        vidas += 1;
+
+        return true;
     }
 }

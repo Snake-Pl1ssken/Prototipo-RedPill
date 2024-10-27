@@ -61,7 +61,7 @@ public class playerControl : MonoBehaviour
         }
         else if (!sprint.action.IsPressed() && characterController.isGrounded)
         {
-            Debug.Log("Mas Rapido NotPressed");
+            //Debug.Log("Mas Rapido NotPressed");
             currentSpeed = baseSpeed;
         }
 
