@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
-using static UnityEngine.UI.Image;
+//using static UnityEngine.UI.Image;
 
 public class Sight_Test : MonoBehaviour
 {
     [SerializeField] Transform EnemyGunPosition;
     [SerializeField] float maxDistance;
-    private bool hasLineOfSight = false;
+    //private bool hasLineOfSight = false;
 
     //private float GunPosition;
 
