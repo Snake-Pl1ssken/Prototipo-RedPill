@@ -16,34 +16,25 @@ public class AmmoShoot : MonoBehaviour
 
     public float gunRange = 50f;
     public float fireRate = 0.2f;
+    private float fireTimer = 0.1f;
     //public float laserDuration = 0.05f;
-    private float fireTimer;
 
     void OnEnable()
     {
         shoot.action.Enable();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("UnArmedDroid"))
-        {
-            Debug.Log("choque con enemigo");
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
         fireTimer += Time.deltaTime;
-        //&& fireTimer > fireRate
-        if (shoot.action.WasPressedThisFrame())
+        if (shoot.action.WasPressedThisFrame() && fireTimer > fireRate)
         {
                 
             GameObject Newammo = Instantiate(AmmoPrefab, AmmoPosition.position, AmmoPosition.transform.rotation);    
             
             Rigidbody rb = Newammo.GetComponent<Rigidbody>();
             rb.velocity = AmmoPosition.transform.forward * speed;
+            Destroy(Newammo,1f);
             if (CompareTag("UnArmedDroid"))
             {
                 Debug.Log("choque con enemigo");

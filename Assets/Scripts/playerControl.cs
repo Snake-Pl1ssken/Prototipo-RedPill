@@ -13,6 +13,7 @@ public class playerControl : MonoBehaviour
     [SerializeField] int jumpSpeed;
 
     [Header("Input Actions")]
+    [Space(20)]
     [SerializeField] InputActionReference jump;
     [SerializeField] InputActionReference sprint;
 
@@ -21,11 +22,14 @@ public class playerControl : MonoBehaviour
 
     float currentSpeed = 2f;
     float verticalVelocity;
+    public int saltosQuepuedoDarSeguidos = 2;
+    private int numSaltosRestantes;
 
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         characterController = GetComponent<CharacterController>();
+        numSaltosRestantes = saltosQuepuedoDarSeguidos;
     }
 
     void OnEnable()
@@ -34,25 +38,25 @@ public class playerControl : MonoBehaviour
         sprint.action.Enable();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-    //const float slopeVerticalVelocity = -2.5f;
-
     const float gravity = -15.81f;
-
-    //private float sprintSpeed = 2f;
 
     void Update()
     {
-
-
-        if (jump.action.WasPressedThisFrame() && characterController.isGrounded)
+        if (characterController.isGrounded)
         {
+            numSaltosRestantes = saltosQuepuedoDarSeguidos;
+
+        }
+        if (jump.action.WasPressedThisFrame() && numSaltosRestantes > 0)
+        {
+            
             Debug.Log("saltando");
+            numSaltosRestantes--;
+            //if (numSaltos < 2)
+            //{ 
             verticalVelocity = jumpSpeed;
+            //}
+
         }
         else if (sprint.action.IsPressed() && characterController.isGrounded)
         {
@@ -61,7 +65,6 @@ public class playerControl : MonoBehaviour
         }
         else if (!sprint.action.IsPressed() && characterController.isGrounded)
         {
-            //Debug.Log("Mas Rapido NotPressed");
             currentSpeed = baseSpeed;
         }
 

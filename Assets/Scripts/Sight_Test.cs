@@ -7,27 +7,30 @@ public class Sight_Test : MonoBehaviour
 {
     [SerializeField] Transform EnemyGunPosition;
     [SerializeField] float maxDistance;
-    //private bool hasLineOfSight = false;
-
-    //private float GunPosition;
+    [SerializeField] float speed;
 
     private void Start()
     {
         EnemyGunPosition = gameObject.transform;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            MenuPausa.instance.PerderVida();
+        }
+    }
 
     private void FixedUpdate()
     {
-        RaycastHit hitRay;
-
-        if (Physics.Raycast(EnemyGunPosition.position, EnemyGunPosition.forward, out hitRay, maxDistance))
+        if (Physics.Raycast(EnemyGunPosition.position, EnemyGunPosition.forward, out RaycastHit hitRay, maxDistance))
         {
             Debug.Log("hit" + hitRay.transform.gameObject.name);
-            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green);
-
+            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green); //Solo Scene
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = transform.forward * speed;
         }
-        //Debug.Log(EnemyGunPosition.position);
     }
 
 }
