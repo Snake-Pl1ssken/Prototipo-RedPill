@@ -16,6 +16,7 @@ public class playerControl : MonoBehaviour
     [Space(20)]
     [SerializeField] InputActionReference jump;
     [SerializeField] InputActionReference sprint;
+    [SerializeField] InputActionReference slide;
 
     CharacterController characterController;
     Animator anim;
@@ -36,6 +37,7 @@ public class playerControl : MonoBehaviour
     {
         jump.action.Enable();
         sprint.action.Enable();
+        slide.action.Enable();
     }
 
     const float gravity = -15.81f;
@@ -49,23 +51,28 @@ public class playerControl : MonoBehaviour
         }
         if (jump.action.WasPressedThisFrame() && numSaltosRestantes > 0)
         {
-            
-            Debug.Log("saltando");
+            //Debug.Log("saltando");
             numSaltosRestantes--;
-            //if (numSaltos < 2)
-            //{ 
-            verticalVelocity = jumpSpeed;
-            //}
-
+     
+            verticalVelocity = jumpSpeed;           
         }
         else if (sprint.action.IsPressed() && characterController.isGrounded)
         {
-            Debug.Log("Mas Rapido Pressed");
+            //Debug.Log("Mas Rapido Pressed");
             currentSpeed = sprintSpeed;
         }
         else if (!sprint.action.IsPressed() && characterController.isGrounded)
         {
             currentSpeed = baseSpeed;
+        }
+        
+        if (slide.action.IsPressed() && characterController.isGrounded)
+        {
+            Debug.Log("Slide Pressed");
+        }
+        else if (!slide.action.IsPressed() && characterController.isGrounded)
+        {
+            Debug.Log("Slide NOT PRESSED");
         }
 
         verticalVelocity += gravity * Time.deltaTime;
@@ -90,6 +97,7 @@ public class playerControl : MonoBehaviour
     {
         jump.action.Disable();
         sprint.action.Disable();
+        slide.action.Disable();
     }
 }
 
