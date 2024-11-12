@@ -66,17 +66,23 @@ public class playerControl : MonoBehaviour
             currentSpeed = baseSpeed;
         }
         
-        if (slide.action.IsPressed() && characterController.isGrounded)
-        {
-            Debug.Log("Slide Pressed");
-        }
-        else if (!slide.action.IsPressed() && characterController.isGrounded)
-        {
-            Debug.Log("Slide NOT PRESSED");
-        }
 
         verticalVelocity += gravity * Time.deltaTime;
         characterController.Move((new Vector3(2f, 0f, 0f) * currentSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
+
+        if (slide.action.IsPressed() && characterController.isGrounded)
+        {
+            //Debug.Log("Slide Pressed");
+            characterController.center = new Vector3(0, -0.5f, 0);
+            characterController.height = 0.0f;
+        }
+        else if (!slide.action.IsPressed() && characterController.isGrounded)
+        {
+            //Debug.Log("Slide NOT PRESSED");
+            characterController.center = new Vector3(0, 0, 0);
+            characterController.height = 1.82f;
+        }
+
 
         //animacion de salto
         anim.SetBool("Saltando", !characterController.isGrounded);
