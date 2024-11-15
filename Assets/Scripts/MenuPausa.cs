@@ -41,7 +41,7 @@ public class MenuPausa : MonoBehaviour
     {
         if (pause.action.WasPressedThisFrame() && !pauseState)
         {
-            Debug.Log("saltando");
+           // Debug.Log("saltando");
             pauseScreen.SetActive(true);
             Time.timeScale = 0f;
             pauseState = true;
