@@ -7,6 +7,8 @@ public class Sight_ArmedDroid : MonoBehaviour
     [SerializeField] Transform EnemyGunPosition;
     [SerializeField] float maxDistance;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float speed;
     //[SerializeField] float speed;
     bool startShoot;
 
@@ -37,14 +39,25 @@ public class Sight_ArmedDroid : MonoBehaviour
         }
         if (startShoot) 
         {
-            Debug.Log("iniciar animacion");
+            //Debug.Log("iniciar animacion");
             animator.SetBool("seePlayer", true);
             startShoot = false;
         }
         else if (!startShoot)
         {
-            Debug.Log("Fin animacion");
+            //Debug.Log("Fin animacion");
             animator.SetBool("seePlayer", false);
+        }
+    }
+
+    void shoot()
+    {
+        GameObject Newammo = Instantiate(bullet,EnemyGunPosition);
+        Rigidbody rb = Newammo.GetComponent<Rigidbody>();
+        rb.velocity = EnemyGunPosition.transform.forward * speed;
+        if (CompareTag("Player"))
+        {
+            Debug.Log("choque con Player");
         }
     }
 
