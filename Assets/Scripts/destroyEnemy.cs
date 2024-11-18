@@ -9,9 +9,9 @@ public class destroyEnemy : MonoBehaviour
 
         Debug.Log("choque con enemigo");
 
-        if (CompareTag("UnArmedDroid"))
+        if (other.gameObject.CompareTag("UnArmedDroid"))
         {
-            Debug.Log("enemy destro");
+            Debug.Log("enemy destroy");
         }
     }
 }
