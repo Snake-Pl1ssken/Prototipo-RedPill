@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class BulletHitPlayer : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        //Debug.Log("Chocando con player");
+    //        MenuPausa.instance.PerderVida();
+    //        Destroy(this.gameObject);
+    //    }
+    //}
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Chocando con player");
             MenuPausa.instance.PerderVida();

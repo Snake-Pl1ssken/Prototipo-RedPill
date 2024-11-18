@@ -14,7 +14,7 @@ public class Sight_ArmedDroid : MonoBehaviour
 
     private void Start()
     {
-        EnemyGunPosition = gameObject.transform;
+        //EnemyGunPosition = gameObject.transform;
         animator = GetComponent<Animator>();
         startShoot = false;
     }
@@ -52,7 +52,7 @@ public class Sight_ArmedDroid : MonoBehaviour
 
     void shoot()
     {
-        GameObject Newammo = Instantiate(bullet,EnemyGunPosition);
+        GameObject Newammo = Instantiate(bullet,EnemyGunPosition.position, EnemyGunPosition.rotation);
         Rigidbody rb = Newammo.GetComponent<Rigidbody>();
         rb.velocity = EnemyGunPosition.transform.forward * speed;
         if (CompareTag("Player"))
