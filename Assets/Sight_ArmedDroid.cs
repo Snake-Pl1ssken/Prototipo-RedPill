@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Sight_ArmedDroid : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class Sight_ArmedDroid : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GameObject bullet;
     [SerializeField] float speed;
-    //[SerializeField] float speed;
+    [SerializeField] Transform meAnEnemyArmed;
+    BoxCollider myBody;
+    Transform myBodyTransform;
     bool startShoot;
 
     private void Start()
     {
-        //EnemyGunPosition = gameObject.transform;
+        DOTween.Init();
         animator = GetComponent<Animator>();
+        myBody = GetComponent<BoxCollider>();
+        myBodyTransform = meAnEnemyArmed;
         startShoot = false;
     }
 
@@ -25,27 +30,29 @@ public class Sight_ArmedDroid : MonoBehaviour
         {
             MenuPausa.instance.PerderVida();
         }
+        if (other.gameObject.CompareTag("PlayerBullet"))
+        {
+
+            myBody.enabled = false;
+            animator.SetBool("IamALive", true);
+
+        }
     }
 
     private void FixedUpdate()
     {
         if (Physics.Raycast(EnemyGunPosition.position, EnemyGunPosition.forward, out RaycastHit hitRay, maxDistance))
         {
-            //Debug.Log("hit" + hitRay.transform.gameObject.name);
-            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green); //Solo Scene
-            //Rigidbody rb = GetComponent<Rigidbody>();
-            //rb.velocity = transform.forward * speed;
+            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green); 
             startShoot = true;
         }
         if (startShoot) 
         {
-            //Debug.Log("iniciar animacion");
             animator.SetBool("seePlayer", true);
             startShoot = false;
         }
         else if (!startShoot)
         {
-            //Debug.Log("Fin animacion");
             animator.SetBool("seePlayer", false);
         }
     }
@@ -59,6 +66,16 @@ public class Sight_ArmedDroid : MonoBehaviour
         {
             Debug.Log("choque con Player");
         }
+    }
+
+    void finalDeathAnimation()
+    {    
+        myBodyTransform.DOMoveY(-1.8f, 1f);
+    }
+
+    void destroyRobot()
+    {
+        Destroy(meAnEnemyArmed.gameObject);
     }
 
 }
