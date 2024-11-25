@@ -73,12 +73,14 @@ public class playerControl : MonoBehaviour
         if (slide.action.IsPressed() && characterController.isGrounded)
         {
             //Debug.Log("Slide Pressed");
+            anim.SetBool("SlideIn", true);
             characterController.center = new Vector3(0, -0.5f, 0);
             characterController.height = 0.0f;
         }
         else if (!slide.action.IsPressed() && characterController.isGrounded)
         {
             //Debug.Log("Slide NOT PRESSED");
+            anim.SetBool("SlideIn", false);
             characterController.center = new Vector3(0, 0, 0);
             characterController.height = 1.82f;
         }
