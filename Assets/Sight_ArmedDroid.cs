@@ -9,6 +9,7 @@ public class Sight_ArmedDroid : MonoBehaviour
     [SerializeField] float maxDistance;
     [SerializeField] Animator animator;
     [SerializeField] GameObject bullet;
+    [SerializeField] GameObject lifeItem;
     [SerializeField] float speed;
     [SerializeField] Transform meAnEnemyArmed;
     BoxCollider myBody;
@@ -76,6 +77,11 @@ public class Sight_ArmedDroid : MonoBehaviour
     void destroyRobot()
     {
         Destroy(meAnEnemyArmed.gameObject);
+    }
+
+    void SpawnLife()
+    {
+        Instantiate(lifeItem, EnemyGunPosition.position, EnemyGunPosition.rotation);
     }
 
 }
