@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyGunPosition: {fileID: 5202278977889810408}
+  mePatrolEnemy: {fileID: 4023410053589088589}
   maxDistance: 5
   speed: 0
 --- !u!65 &1738804972644511710
