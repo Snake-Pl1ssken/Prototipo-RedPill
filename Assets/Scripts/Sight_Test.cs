@@ -7,6 +7,7 @@ public class Sight_Test : MonoBehaviour
 {
     [SerializeField] Transform EnemyGunPosition;
     [SerializeField] GameObject mePatrolEnemy;
+    //[SerializeField] GameObject Player;
     [SerializeField] float maxDistance;
     [SerializeField] float speed;
     bool iSeetheEnemy = false;
@@ -30,11 +31,11 @@ public class Sight_Test : MonoBehaviour
         if (iSeetheEnemy)
         {
             timePassed += Time.deltaTime;
-            if (timePassed >= 3f)
-            { 
-                Debug.Log("Me destruyo");
-                Destroy(mePatrolEnemy);
-            }
+                if (timePassed >= 3f)
+                { 
+                    Debug.Log("Me destruyo");
+                    Destroy(mePatrolEnemy);
+                }
         }
     }
 
@@ -42,13 +43,18 @@ public class Sight_Test : MonoBehaviour
     {
         if (Physics.Raycast(EnemyGunPosition.position, EnemyGunPosition.forward, out RaycastHit hitRay, maxDistance))
         {
-            Debug.Log("hit" + hitRay.transform.gameObject.name);
-            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green); //Solo Scene
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * speed;
-            iSeetheEnemy = true;
-     //       Debug.Log("iSeetheEnemy a TRUE");
+            if (hitRay.transform.CompareTag("Player"))
+            { 
+                    Debug.Log("hit" + hitRay.transform.gameObject.name);
+                    Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * 10, Color.green); //Solo Scene
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    rb.velocity = transform.forward * speed;
+                    timePassed += Time.deltaTime;
+                    iSeetheEnemy = true;
+                    timePassed = 0; 
+                    return;
+            }
         }
-    }
 
+    }
 }
