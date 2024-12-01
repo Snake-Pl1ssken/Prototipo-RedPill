@@ -13,13 +13,27 @@ public class BulletHitPlayer : MonoBehaviour
     //        Destroy(this.gameObject);
     //    }
     //}
+    private bool playerHited = false;
+    int vidasPlayer;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !playerHited)
         {
             //Debug.Log("Chocando con player");
-            MenuPausa.instance.PerderVida();
-            Destroy(this.gameObject);
+            playerHited = true;
+            //if (playerHited)
+            //{
+                //Debug.Log(playerHited);
+                //playerHited = false;
+                MenuPausa.instance.PerderVida();
+            //    vidasPlayer++;
+            //   Debug.Log(vidasPlayer);
+            //}
+            //else
+            //{ 
+                Destroy(this.gameObject);
+            //}
+
         }
     }
 }

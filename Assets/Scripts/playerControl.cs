@@ -47,22 +47,29 @@ public class playerControl : MonoBehaviour
         if (characterController.isGrounded)
         {
             numSaltosRestantes = saltosQuepuedoDarSeguidos;
-
+            //anim.SetBool("Saltando", false);
         }
         if (jump.action.WasPressedThisFrame() && numSaltosRestantes > 0)
         {
             //Debug.Log("saltando");
             numSaltosRestantes--;
-     
+            anim.SetTrigger("SaltandoTrigger");
+            //if (numSaltosRestantes <= 0)
+            //{
+            //    Debug.Log(numSaltosRestantes);
+            //    anim.SetBool("Saltando", false);
+            //}
             verticalVelocity = jumpSpeed;           
         }
         else if (sprint.action.IsPressed() && characterController.isGrounded)
         {
             //Debug.Log("Mas Rapido Pressed");
+            anim.SetBool("SprintIn ", true);
             currentSpeed = sprintSpeed;
         }
         else if (!sprint.action.IsPressed() && characterController.isGrounded)
         {
+            anim.SetBool("SprintIn ", false);
             currentSpeed = baseSpeed;
         }
         
