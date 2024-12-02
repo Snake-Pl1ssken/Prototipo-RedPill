@@ -26,6 +26,15 @@ public class playerControl : MonoBehaviour
     public int saltosQuepuedoDarSeguidos = 2;
     private int numSaltosRestantes;
 
+    [SerializeField] Transform AmmoPosition;
+    [SerializeField] InputActionReference shoot;
+    [SerializeField] GameObject AmmoPrefab;
+    [SerializeField] float speed;
+
+    public float gunRange = 50f;
+    public float fireRate = 0.2f;
+    private float fireTimer = 0.1f;
+
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -38,12 +47,28 @@ public class playerControl : MonoBehaviour
         jump.action.Enable();
         sprint.action.Enable();
         slide.action.Enable();
+        shoot.action.Enable();
     }
 
     const float gravity = -15.81f;
 
     void Update()
     {
+        fireTimer += Time.deltaTime;
+        if (shoot.action.WasPressedThisFrame() && fireTimer > fireRate)
+        {
+            anim.SetTrigger("Shoot");
+            GameObject Newammo = Instantiate(AmmoPrefab, AmmoPosition.position, AmmoPosition.transform.rotation);
+
+            Rigidbody rb = Newammo.GetComponent<Rigidbody>();
+            rb.velocity = AmmoPosition.transform.forward * speed;
+            Destroy(Newammo, 1f);
+            if (CompareTag("UnArmedDroid"))
+            {
+                Debug.Log("choque con enemigo");
+            }
+
+        }
         if (characterController.isGrounded)
         {
             numSaltosRestantes = saltosQuepuedoDarSeguidos;
@@ -113,6 +138,7 @@ public class playerControl : MonoBehaviour
         jump.action.Disable();
         sprint.action.Disable();
         slide.action.Disable();
+        shoot.action.Disable();
     }
 }
 

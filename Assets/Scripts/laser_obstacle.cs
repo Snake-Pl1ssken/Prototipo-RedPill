@@ -69,7 +69,7 @@ public class laser_obstacle : MonoBehaviour
                 if (!playerHit)
                 {
                     playerHit = true;
-                    //Debug.Log("Choque con player");
+                    Debug.Log("Choque con player");
                     quitarVida();
                 }
 
