@@ -4,6 +4,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameLogic : MonoBehaviour
 {
@@ -27,11 +28,27 @@ public class GameLogic : MonoBehaviour
     [SerializeField] AudioSource SFXButtons;
     [SerializeField] AudioClip clickAudio;
     [SerializeField] AudioClip hoverAudio;
+    [Space(20)]
+    [Header("Door movement")]
+    [SerializeField] Transform right;
+    [Space(20)]
+    [Header("Canvas Group")]
+    [SerializeField] CanvasGroup ExitSureCanvasGroup;
+    //[SerializeField] CanvasGroup MainMenuCanvasGroup;
+    [SerializeField] CanvasGroup CreditosCanvasGroup;
+    [SerializeField] CanvasGroup OpcionesCanvasGroup;
+    [SerializeField] CanvasGroup IniciarJuegoCanvasGroup;
+
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void Awake()
+    {
+        
     }
 
     // Este método debe estar público para que lo puedas asignar al botón desde el inspector.
@@ -44,6 +61,12 @@ public class GameLogic : MonoBehaviour
     ////////////////////FUNCIONALIDAD INICIARJUEGO BUTTON////////////////////////////////////////
     public void IniciarJuego()
     {
+        /////////////////////Fade///////////////////
+        IniciarJuegoCanvasGroup.blocksRaycasts = true;
+        IniciarJuegoCanvasGroup.interactable = true;
+        IniciarJuegoCanvasGroup.DOFade(1f, 5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(false);
         credits.gameObject.SetActive(false);
@@ -63,6 +86,15 @@ public class GameLogic : MonoBehaviour
 
     public void volverIniciarJuego()
     {
+        /////////////////////Fade///////////////////
+        IniciarJuegoCanvasGroup.blocksRaycasts = false;
+        IniciarJuegoCanvasGroup.interactable = false;
+        //IniciarJuegoCanvasGroup.alpha = 0f;
+        //Debug.Log(IniciarJuegoCanvasGroup.alpha);
+        IniciarJuegoCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.Linear);
+        //IniciarJuegoCanvasGroup.DOFade(2f, 0.5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(true);
         options.gameObject.SetActive(false);
@@ -178,6 +210,10 @@ public class GameLogic : MonoBehaviour
     ////////////////////FUNCIONALIDAD EXIT BUTTON////////////////////////////////////////
     public void Exit()
     {
+        //////////////Rotate_Door//////////////////
+        right.DORotate(Vector3.up * 90f, 5f, RotateMode.FastBeyond360).SetRelative().SetEase(Ease.OutFlash);
+        //////////////Rotate_Door//////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(false);
         options.gameObject.SetActive(false);
@@ -196,6 +232,10 @@ public class GameLogic : MonoBehaviour
 
     public void NO()
     {
+        //////////////Rotate_Door//////////////////
+        right.DORotate(Vector3.up * -90f, 3f, RotateMode.FastBeyond360).SetRelative().SetEase(Ease.OutFlash);
+        //////////////Rotate_Door//////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(true);
         options.gameObject.SetActive(false);
