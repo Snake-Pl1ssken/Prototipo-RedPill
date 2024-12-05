@@ -39,18 +39,6 @@ public class GameLogic : MonoBehaviour
     [SerializeField] CanvasGroup OpcionesCanvasGroup;
     [SerializeField] CanvasGroup IniciarJuegoCanvasGroup;
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void Awake()
-    {
-        
-    }
-
     // Este método debe estar público para que lo puedas asignar al botón desde el inspector.
     public void Switch_Scene(string nombreEscena)
     {
@@ -119,6 +107,12 @@ public class GameLogic : MonoBehaviour
     ////////////////////FUNCIONALIDAD OPCIONES BUTTON////////////////////////////////////////
     public void opciones()
     {
+        /////////////////////Fade///////////////////
+        OpcionesCanvasGroup.blocksRaycasts = true;
+        OpcionesCanvasGroup.interactable = true;
+        OpcionesCanvasGroup.DOFade(1f, 5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(false);
         play.gameObject.SetActive(false);
@@ -137,6 +131,12 @@ public class GameLogic : MonoBehaviour
 
     public void volverOpciones()
     {
+        /////////////////////Fade///////////////////
+        OpcionesCanvasGroup.blocksRaycasts = false;
+        OpcionesCanvasGroup.interactable = false;
+        OpcionesCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(true);
         options.gameObject.SetActive(false);
@@ -164,6 +164,12 @@ public class GameLogic : MonoBehaviour
     ////////////////////FUNCIONALIDAD CREDITOS BUTTON////////////////////////////////////////
     public void creditos()
     {
+        /////////////////////Fade///////////////////
+        CreditosCanvasGroup.blocksRaycasts = true;
+        CreditosCanvasGroup.interactable = true;
+        CreditosCanvasGroup.DOFade(1f, 5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(false);
         options.gameObject.SetActive(false);
@@ -182,6 +188,12 @@ public class GameLogic : MonoBehaviour
 
     public void volverCreditos()
     {
+        /////////////////////Fade///////////////////
+        CreditosCanvasGroup.blocksRaycasts = false;
+        CreditosCanvasGroup.interactable = false;
+        CreditosCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(true);
         options.gameObject.SetActive(false);
@@ -214,6 +226,12 @@ public class GameLogic : MonoBehaviour
         right.DORotate(Vector3.up * 90f, 5f, RotateMode.FastBeyond360).SetRelative().SetEase(Ease.OutFlash);
         //////////////Rotate_Door//////////////////
 
+        /////////////////////Fade///////////////////
+        ExitSureCanvasGroup.blocksRaycasts = true;
+        ExitSureCanvasGroup.interactable = true;
+        ExitSureCanvasGroup.DOFade(1f, 5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
+
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(false);
         options.gameObject.SetActive(false);
@@ -235,6 +253,12 @@ public class GameLogic : MonoBehaviour
         //////////////Rotate_Door//////////////////
         right.DORotate(Vector3.up * -90f, 3f, RotateMode.FastBeyond360).SetRelative().SetEase(Ease.OutFlash);
         //////////////Rotate_Door//////////////////
+
+        /////////////////////Fade///////////////////
+        ExitSureCanvasGroup.blocksRaycasts = false;
+        ExitSureCanvasGroup.interactable = false;
+        ExitSureCanvasGroup.DOFade(0f, 0.5f).SetEase(Ease.Linear);
+        /////////////////////Fade///////////////////
 
         /////////////Camaras//////////////////
         MainMenu.gameObject.SetActive(true);
@@ -261,7 +285,7 @@ public class GameLogic : MonoBehaviour
 
 
 
-
+    ////////////////////FUNCIONALIDAD SONIDO EN LOS BOTONES////////////////////////////////////////
     public void ClickAudioOn()
     {
         SFXButtons.PlayOneShot(clickAudio);
@@ -271,8 +295,5 @@ public class GameLogic : MonoBehaviour
     {
         SFXButtons.PlayOneShot(hoverAudio);
     }
-
-
-
-
+    ////////////////////FUNCIONALIDAD SONIDO EN LOS BOTONES////////////////////////////////////////
 }
