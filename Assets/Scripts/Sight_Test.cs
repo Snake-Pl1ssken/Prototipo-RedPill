@@ -43,6 +43,7 @@ public class Sight_Test : MonoBehaviour
     {
         if (Physics.Raycast(EnemyGunPosition.position, EnemyGunPosition.forward, out RaycastHit hitRay, maxDistance))
         {
+            Debug.DrawRay(EnemyGunPosition.position, EnemyGunPosition.forward * maxDistance, Color.green);
             if (hitRay.transform.CompareTag("Player"))
             { 
                     Debug.Log("hit" + hitRay.transform.gameObject.name);
